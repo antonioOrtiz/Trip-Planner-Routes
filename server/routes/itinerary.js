@@ -11,9 +11,10 @@ router
   });
 
 router.post('/', function(req, res, next) {
-  Itinerary.create(req.body).then(function(itinerary) {
-    res.json(itinerary);
-  });
+  console.log(req.body)
+  // Itinerary.create(req.body).then(function(itinerary) {
+  //   res.json(itinerary);
+  // });
 });
 
 module.exports = router;

@@ -8,7 +8,7 @@ const db = require('./models').db;
 const app = express();
 
 // logging and body-parsing
-app.use(volleyball);
+//.app.use(volleyball);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

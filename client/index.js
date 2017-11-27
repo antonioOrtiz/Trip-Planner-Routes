@@ -15,7 +15,7 @@ const state = {
   * Instantiate the Map
   */
 
-mapboxgl.accessToken = "YOUR API TOKEN HERE";
+mapboxgl.accessToken = 'pk.eyJ1Ijoic3V5YXNoMTkiLCJhIjoiY2phOXRyMDlyMGx6ZjMybzdzMnQ1ZHJzMiJ9.IbKhkyOj2XFb2PSOlNYr8w';
 
 const fullstackCoords = [-74.009, 40.705]; // NY
 // const fullstackCoords = [-87.6320523, 41.8881084] // CHI
@@ -45,6 +45,17 @@ const makeOption = (attraction, selector) => {
   select.add(option);
 };
 
+if(location.hash){
+  api.fetchItinerary(location.hash)
+  .then((attractions)=>{
+    ["hotels", "restaurants", "activities"].forEach(attractionType => {
+      attractions[attractionType].forEach((item)=>{
+        buildAttractionAssets(attractionType, item);
+      })
+    });
+
+  })
+}
 /*
   * Attach Event Listeners
   */
@@ -74,7 +85,13 @@ const handleAddAttraction = attractionType => {
   buildAttractionAssets(attractionType, selectedAttraction);
 };
 
+const saveButton = document.getElementById("save-itinerary");
+saveButton.addEventListener('click', api.saveItinerary.bind(null, state));
+
+
 const buildAttractionAssets = (category, attraction) => {
+
+
   // Create the Elements that will be inserted in the dom
   const removeButton = document.createElement("button");
   removeButton.className = "remove-btn";
