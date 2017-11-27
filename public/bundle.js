@@ -703,21 +703,20 @@ module.exports = g;
 /***/ (function(module, exports) {
 
 const fetchAttractions = () =>
-  fetch("/api")
+  fetch('/api')
     .then(result => result.json())
     .catch(err => console.error(err));
 
-
-const fetchItinerary = (id) =>{
-  let userId  = id.slice(1)
+const fetchItinerary = id => {
+  let userId = id.slice(1);
   return fetch(`/api/itinerary/${userId}`)
     .then(result => result.json())
     .catch(err => console.error(err));
-}
+};
 
-const saveItinerary = (state) => {
+const saveItinerary = state => {
   const userObject = {
-    attractions: state.selectedAttractions
+    attractions: state.selectedAttractions,
   };
 
   // let userId  = location.hash ? location.hash.slice(1) : null
@@ -727,18 +726,19 @@ const saveItinerary = (state) => {
   // // }
   fetch('/api/itinerary/', {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     method: 'post',
-    body: JSON.stringify(userObject)
+    body: JSON.stringify(userObject),
+  }).then(function(result) {
+    console.log('result', result);
   });
-
-}
+};
 
 module.exports = {
   fetchAttractions,
   fetchItinerary,
-  saveItinerary
+  saveItinerary,
 };
 
 
