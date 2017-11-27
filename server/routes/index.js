@@ -1,19 +1,21 @@
-const router = require("express").Router();
-const Hotel = require("../models").Hotel;
-const Restaurant = require("../models").Restaurant;
-const Activity = require("../models").Activity;
+const router = require('express').Router();
+const Hotel = require('../models').Hotel;
+const Restaurant = require('../models').Restaurant;
+const Activity = require('../models').Activity;
 
-router.get("/", (req, res, next) => {
+router.use('/itinerary', require('./itinerary'));
+
+router.get('/', (req, res, next) => {
   Promise.all([
     Hotel.findAll({ include: [{ all: true }] }),
     Restaurant.findAll({ include: [{ all: true }] }),
-    Activity.findAll({ include: [{ all: true }] })
+    Activity.findAll({ include: [{ all: true }] }),
   ])
     .then(([hotels, restaurants, activities]) => {
       res.json({
         hotels,
         restaurants,
-        activities
+        activities,
       });
     })
     .catch(next);
